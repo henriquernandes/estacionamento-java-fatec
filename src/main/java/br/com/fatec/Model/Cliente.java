@@ -95,10 +95,7 @@ public class Cliente {
     public void setSelecionado(boolean selecionado) {
         this.selecionado.set(selecionado);
     }
-      
-    public void setId(int id) {
-        this.id.set(id);
-    }
+
     public int getId() {
         return this.id.get();
     }

@@ -91,7 +91,6 @@ public class ClienteDAO implements DAO<Cliente> {
 
         if(rs.next()){
             cliente = new Cliente();
-            cliente.setId(rs.getInt("id"));
             cliente.setNome(rs.getString("nome"));
             cliente.setEndereco(rs.getString("endereco"));
             cliente.setTelefone(rs.getString("telefone"));
@@ -123,7 +122,6 @@ public class ClienteDAO implements DAO<Cliente> {
 
         while(rs.next()){
             cliente = new Cliente();
-            cliente.setId(rs.getInt("id"));
             cliente.setNome(rs.getString("nome"));
             cliente.setEndereco(rs.getString("endereco"));
             cliente.setTelefone(rs.getString("telefone"));

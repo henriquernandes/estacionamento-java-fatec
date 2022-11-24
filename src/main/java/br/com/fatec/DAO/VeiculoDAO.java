@@ -96,7 +96,6 @@ public class VeiculoDAO implements DAO<Veiculo> {
 
         if (rs.next()) {
             veiculo = new Veiculo();
-            veiculo.setId(rs.getInt("id"));
             veiculo.setModelo(rs.getString("modelo"));
             veiculo.setMarca(rs.getString("marca"));
             veiculo.setAno(rs.getString("ano"));
@@ -113,7 +112,7 @@ public class VeiculoDAO implements DAO<Veiculo> {
     public Collection<Veiculo> lista(String criterio) throws SQLException {
         String sql = "SELECT * FROM carro";
 
-        if (criterio.length() > 0) {
+        if(criterio != null && !criterio.isEmpty()){
             sql += " WHERE " + criterio;
         }
 
@@ -127,7 +126,6 @@ public class VeiculoDAO implements DAO<Veiculo> {
 
         while (rs.next()) {
             Veiculo veiculo = new Veiculo();
-            veiculo.setId(rs.getInt("id"));
             veiculo.setModelo(rs.getString("modelo"));
             veiculo.setMarca(rs.getString("marca"));
             veiculo.setAno(rs.getString("ano"));

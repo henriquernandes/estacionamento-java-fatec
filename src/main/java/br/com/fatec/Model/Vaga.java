@@ -6,6 +6,7 @@
 package br.com.fatec.Model;
 
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
@@ -15,18 +16,23 @@ import javafx.beans.property.SimpleStringProperty;
 public class Vaga {
     private final SimpleStringProperty cod_vaga;
     private final SimpleBooleanProperty coberta;
+    private Veiculo carro;
+    private final SimpleIntegerProperty id;
 
    
     public Vaga() {
+        this.id = new SimpleIntegerProperty(0);
         this.cod_vaga = new SimpleStringProperty("");
         this.coberta = new SimpleBooleanProperty(false);
     }
     
-    public Vaga(String cod_vaga, boolean coberta){
+    public Vaga(String cod_vaga, boolean coberta, SimpleIntegerProperty id){
         this.cod_vaga = new SimpleStringProperty(cod_vaga);
         this.coberta = new SimpleBooleanProperty(coberta);
+        this.id = new SimpleIntegerProperty(id.get());
     }
-    
+
+
     public String getCod_vaga() {
         return cod_vaga.get();
     }
@@ -42,5 +48,16 @@ public class Vaga {
     public void setCoberta(boolean coberta) {
         this.coberta.set(coberta);
     }
-    
+
+    public Veiculo getCarro() {
+        return carro;
+    }
+
+    public void setCarro(Veiculo carro) {
+        this.carro = carro;
+    }
+
+    public int getId() {
+        return id.get();
+    }
 }
