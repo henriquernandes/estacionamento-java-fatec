@@ -6,6 +6,7 @@
 package br.com.fatec.Model;
 
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
@@ -15,6 +16,7 @@ import javafx.beans.property.SimpleStringProperty;
 public class Cliente {
     private final SimpleStringProperty nome, endereco, telefone;
     private final SimpleBooleanProperty mensalista, selecionado;
+    private final SimpleIntegerProperty id;
 
     public Cliente() {
         this.nome = new SimpleStringProperty("");
@@ -22,14 +24,16 @@ public class Cliente {
         this.telefone = new SimpleStringProperty("");
         this.mensalista = new SimpleBooleanProperty(false);
         this.selecionado = new SimpleBooleanProperty(false);
+        this.id = new SimpleIntegerProperty(0);
     }
 
-    public Cliente(String nome, String endereco, String telefone, boolean mensalista, boolean selecionado) {
+    public Cliente(String nome, String endereco, String telefone, boolean mensalista, boolean selecionado, int id) {
         this.nome = new SimpleStringProperty(nome);
         this.endereco = new SimpleStringProperty(endereco);
         this.telefone = new SimpleStringProperty(telefone);
         this.mensalista = new SimpleBooleanProperty(mensalista);
         this.selecionado = new SimpleBooleanProperty(false);
+        this.id = new SimpleIntegerProperty(id);
     }
 
     public SimpleStringProperty nomeProperty() {
@@ -91,9 +95,8 @@ public class Cliente {
     public void setSelecionado(boolean selecionado) {
         this.selecionado.set(selecionado);
     }
-      
-    
-    
-    
-       
+
+    public int getId() {
+        return this.id.get();
+    }
 }

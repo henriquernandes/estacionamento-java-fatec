@@ -5,6 +5,11 @@
  */
 package br.com.fatec.DAO;
 
+import br.com.fatec.Model.Cliente;
+import br.com.fatec.Model.Vaga;
+import br.com.fatec.Model.Veiculo;
+import br.com.fatec.persistencia.Banco;
+
 import java.sql.SQLException;
 import java.util.Collection;
 
@@ -12,32 +17,122 @@ import java.util.Collection;
  *
  * @author Aluno
  */
-public class VagaDAO implements DAO {
+public class VagaDAO implements DAO<Vaga>{
+
+    private  java.sql.PreparedStatement stmt;
+
+    private java.sql.ResultSet rs;
 
     @Override
-    public boolean insere(Object obj) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean insere(Vaga obj) throws SQLException {
+        String sql = "INSERT INTO vaga (cod_vaga, carro_id, coberta) VALUES (?,?,?)";
+
+        Banco.conectar();
+
+        stmt = Banco.obterConexao().prepareStatement(sql);
+
+        stmt.setString(1, obj.getCod_vaga());
+        stmt.setInt(2, obj.getCarro().getId());
+        stmt.setBoolean(3, obj.isCoberta());
+
+        int res = stmt.executeUpdate();
+
+        Banco.desconectar();
+
+        return res != 0;
     }
 
     @Override
-    public boolean remove(Object obj) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean remove(Vaga obj) throws SQLException {
+        String sql = "DELETE FROM vaga WHERE id = ?";
+
+        Banco.conectar();
+
+        stmt = Banco.obterConexao().prepareStatement(sql);
+
+        stmt.setInt(1, obj.getCarro().getId());
+
+        int res = stmt.executeUpdate();
+
+        Banco.desconectar();
+
+        return res != 0;
     }
 
     @Override
-    public boolean altera(Object obj) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean altera(Vaga obj) throws SQLException {
+        String sql = "UPDATE vaga SET cod_vaga = ?, carro_id = ?, coberta = ? WHERE id = ?";
+
+        Banco.conectar();
+
+        stmt = Banco.obterConexao().prepareStatement(sql);
+
+        stmt.setString(1, obj.getCod_vaga());
+        stmt.setInt(2, obj.getCarro().getId());
+        stmt.setBoolean(3, obj.isCoberta());
+        stmt.setInt(4, obj.getId());
+
+        int res = stmt.executeUpdate();
+
+        Banco.desconectar();
+
+        return res != 0;
     }
 
     @Override
-    public Object buscaID(Object obj) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Vaga buscaID(Vaga obj) throws SQLException {
+        String sql = "SELECT * FROM vaga WHERE id = ?";
+
+        Banco.conectar();
+
+        stmt = Banco.obterConexao().prepareStatement(sql);
+
+        stmt.setInt(1, obj.getId());
+
+        rs = stmt.executeQuery();
+
+        Vaga vaga = null;
+
+        if(rs.next()){
+            vaga = new Vaga();
+            vaga.setCod_vaga(rs.getString("cod_vaga"));
+            vaga.setCoberta(rs.getBoolean("coberta"));
+            vaga.setCarro(rs.getObject("carro_id", Veiculo.class));
+        }
+
+        Banco.desconectar();
+
+        return vaga;
     }
 
     @Override
-    public Collection lista(String criterio) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Collection<Vaga> lista(String criterio) throws SQLException {
+        String sql = "SELECT * FROM vaga";
+
+        if(criterio != null && !criterio.isEmpty()){
+            sql += " WHERE " + criterio;
+        }
+
+        Banco.conectar();
+
+        stmt = Banco.obterConexao().prepareStatement(sql);
+
+        stmt.setString(1, criterio);
+
+        rs = stmt.executeQuery();
+
+        Collection<Vaga> vagas = new java.util.ArrayList<>();
+
+        while(rs.next()){
+            Vaga vaga = new Vaga();
+            vaga.setCod_vaga(rs.getString("cod_vaga"));
+            vaga.setCoberta(rs.getBoolean("coberta"));
+            vaga.setCarro(rs.getObject("carro_id", Veiculo.class));
+            vagas.add(vaga);
+        }
+
+        Banco.desconectar();
+
+        return vagas;
     }
-    
-    
 }
