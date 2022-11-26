@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" fx:id="menuPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.fatec.controllers.MenuController">
+   <children>
+      <VBox fx:id="hboxBotoes1" prefHeight="400.0" prefWidth="280.0" spacing="40.0">
+         <children>
+            <Button fx:id="btnCadastroCarro" mnemonicParsing="false" onAction="#btnCadastroCarro_Click" prefHeight="60.0" prefWidth="280.0" text="Cadastro de Veiculos" />
+            <Button fx:id="btnCadastroCliente" mnemonicParsing="false" onAction="#btnCadastroCliente_Click" prefHeight="60.0" prefWidth="280.0" text="Cadastro de Clientes" />
+            <Button fx:id="btnCadastroVaga" mnemonicParsing="false" onAction="#btnCadastroVaga_Click" prefHeight="60.0" prefWidth="280.0" text="Cadastro de Vagas" />
+         </children>
+         <padding>
+            <Insets left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+      <VBox fx:id="hboxBotoes2" layoutX="338.0" prefHeight="400.0" prefWidth="280.0" spacing="250.0">
+         <children>
+            <Button fx:id="btnConsulta" mnemonicParsing="false" onAction="#btnConsulta_Click" prefHeight="60.0" prefWidth="280.0" text="Consultar" />
+            <Button fx:id="btnSair" mnemonicParsing="false" onAction="#btnSair_Click" prefHeight="60.0" prefWidth="280.0" text="Sair" />
+         </children>
+         <padding>
+            <Insets left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>
