@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" fx:id="paneConsulta" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.fatec.controllers.ConsultaController">
+   <children>
+      <Label fx:id="lblConsulta" layoutX="14.0" layoutY="14.0" prefHeight="30.0" prefWidth="95.0" text="Consultar:">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="cbConsulta" layoutX="84.0" layoutY="17.0" prefHeight="25.0" prefWidth="158.0" promptText="Selecione a categoria" />
+      <Label fx:id="lblCodigo" layoutX="271.0" layoutY="16.0" prefHeight="30.0" prefWidth="129.0" text="Busca por Código:">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtCodigo" layoutX="400.0" layoutY="19.0" prefHeight="25.0" prefWidth="123.0" />
+      <TableView fx:id="tbConsulta" layoutY="80.0" prefHeight="267.0" prefWidth="600.0">
+        <columns>
+          <TableColumn fx:id="colVaga" prefWidth="153.0" text="Vaga" />
+          <TableColumn fx:id="colCliente" minWidth="0.0" prefWidth="286.0" text="Nome do Cliente" />
+            <TableColumn fx:id="colCarro" prefWidth="160.0" text="Carro/Placa" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnBusca" layoutX="529.0" layoutY="19.0" mnemonicParsing="false" onAction="#btnBusca_Click" prefHeight="25.0" prefWidth="65.0" text="Buscar" />
+      <Button fx:id="btnVoltar" layoutX="496.0" layoutY="361.0" mnemonicParsing="false" onAction="#btnVoltar_Click" prefHeight="30.0" prefWidth="95.0" text="Voltar" />
+   </children>
+</AnchorPane>
