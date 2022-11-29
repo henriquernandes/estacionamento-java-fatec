@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="paneVagas" prefHeight="226.0" prefWidth="365.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.fatec.controllers.CadastroVagasController">
+<AnchorPane id="AnchorPane" fx:id="paneVagas" prefHeight="226.0" prefWidth="365.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.fatec.Controllers.CadastroVagasController">
    <children>
       <VBox layoutX="14.0" layoutY="36.0" prefHeight="107.0" prefWidth="114.0">
          <children>

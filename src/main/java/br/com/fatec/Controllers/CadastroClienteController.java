@@ -5,8 +5,13 @@
  */
 package br.com.fatec.Controllers;
 
+import Errors.AlertWindow;
+import br.com.fatec.DAO.ClienteDAO;
+import br.com.fatec.Model.Cliente;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,6 +22,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -63,7 +69,14 @@ public class CadastroClienteController implements Initializable {
     private Button btnVoltar;
     @FXML
     private Button btnLimpar;
-
+    @FXML
+    private Label lblId;
+    @FXML
+    private TextField txtId;
+    
+    private boolean insere, altera, remove;
+    ClienteDAO dao = new ClienteDAO();
+    
     /**
      * Initializes the controller class.
      */
@@ -74,26 +87,104 @@ public class CadastroClienteController implements Initializable {
 
     @FXML
     private void btnSalvar_Click(ActionEvent event) {
+        Cliente c = new Cliente();
+        c.setNome(txtNome.getText());
+        c.setTelefone(txtTelefone.getText());
+        c.setEndereco(txtEndereco.getText());
+        c.setMensalista(chbMensalista.isSelected());
+        try{
+            if(dao.insere(c)){
+                AlertWindow alert = new AlertWindow("Dados inseridos com sucesso");
+                alert.getInformation();
+            }else {
+                AlertWindow alert = new AlertWindow("Dados não inseridos!");
+                alert.getError();
+                limparCampos();
+            }
+        }catch(SQLException e){
+           Logger.getLogger(CadastroCarrosController.class.getName());
+        }
     }
 
     @FXML
     private void btnAlterar_Click(ActionEvent event) {
+        Cliente c = new Cliente();
+        c.setNome(txtNome.getText());
+        c.setTelefone(txtTelefone.getText());
+        c.setEndereco(txtEndereco.getText());
+        c.setMensalista(chbMensalista.isSelected());
+        try{
+            if(dao.altera(c)){
+                AlertWindow alert = new AlertWindow("Dados alterados com sucesso");
+                alert.getInformation();
+            }else {
+                AlertWindow alert = new AlertWindow("Dados não inseridos!");
+                alert.getError();
+            }
+        }catch(SQLException e){
+           Logger.getLogger(CadastroCarrosController.class.getName());
+        }
     }
 
     @FXML
     private void btnExcluir_Click(ActionEvent event) {
+        Cliente c = new Cliente();
+        c.setId(Integer.parseInt(txtId.getText()));
+        AlertWindow alert = new AlertWindow();
+        if(alert.getConfirmation()){
+            return;
+        }
+        try{
+            if(dao.remove(c)){
+                alert = new AlertWindow("Dados excluidos com sucesso");
+                alert.getInformation();
+                limparCampos();
+            }else {
+                alert = new AlertWindow("Dados não inseridos!");
+                alert.getError();
+            }
+        }catch(SQLException e){
+           Logger.getLogger(CadastroCarrosController.class.getName());
+        }
     }
 
     @FXML
     private void btnConsultar_Click(ActionEvent event) {
+        Cliente c = new Cliente();
+        c.setId(Integer.parseInt(txtId.getText()));
+        try{
+            c = dao.buscaID(c);
+            if(c != null){
+                txtNome.setText(c.getNome());
+                txtTelefone.setText(c.getTelefone());
+                txtEndereco.setText(c.getEndereco());
+                chbMensalista.setSelected(c.isMensalista());;
+            }else {
+                limparCampos();
+                AlertWindow alert = new AlertWindow("Cliente não localizado");
+                alert.getError();
+            }
+        }catch(SQLException e){
+           Logger.getLogger(CadastroCarrosController.class.getName());
+        }
     }
 
     @FXML
     private void btnVoltar_Click(ActionEvent event) {
+        Stage stage = (Stage) btnVoltar.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
     private void btnLimpar_Click(ActionEvent event) {
+        limparCampos();
+    }
+    
+    private void limparCampos() {
+        txtNome.setText("");
+        txtTelefone.setText("");
+        txtEndereco.setText("");
+        chbMensalista.setSelected(false);
     }
     
 }

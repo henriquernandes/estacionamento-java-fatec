@@ -1,10 +1,10 @@
 package br.com.fatec.DAO;
 
+import br.com.fatec.Model.Cliente;
 import java.sql.SQLException;
 
 import br.com.fatec.Model.Veiculo;
 import br.com.fatec.persistencia.Banco;
-import br.com.fatec.Model.Cliente;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,7 +18,7 @@ public class VeiculoDAO implements DAO<Veiculo> {
 
     private java.sql.ResultSet rs;
 
-    private Cliente cliente;
+    private Veiculo veiculo;
 
     @Override
     public boolean insere(Veiculo obj) throws SQLException {
@@ -82,25 +82,32 @@ public class VeiculoDAO implements DAO<Veiculo> {
 
     @Override
     public Veiculo buscaID(Veiculo obj) throws SQLException {
-        String sql = "SELECT * FROM carro WHERE id = ?";
+        String sql = "SELECT * FROM carro inner join cliente on carro.cliente_id = cliente.id  WHERE carro.placa = ?";
 
         Banco.conectar();
 
         stmt = Banco.obterConexao().prepareStatement(sql);
 
-        stmt.setInt(1, obj.getId());
+        stmt.setString(1, obj.getPlaca());
 
         rs = stmt.executeQuery();
 
-        Veiculo veiculo = null;
+        veiculo = null;
 
         if (rs.next()) {
             veiculo = new Veiculo();
+            Cliente c = new Cliente();
+            c.setId(rs.getInt("cliente_id"));
+            c.setNome(rs.getString("cliente_id"));
+            c.setEndereco(rs.getString("endereco"));
+            c.setTelefone(rs.getString("telefone"));
+            c.setMensalista(rs.getBoolean("mensalista"));
+            veiculo.setId(rs.getInt("id"));
             veiculo.setModelo(rs.getString("modelo"));
             veiculo.setMarca(rs.getString("marca"));
             veiculo.setAno(rs.getString("ano"));
             veiculo.setPlaca(rs.getString("placa"));
-            veiculo.setCliente(rs.getObject("cliente_id", Cliente.class));
+            veiculo.setCliente(c);
         }
 
         Banco.desconectar();
@@ -125,7 +132,7 @@ public class VeiculoDAO implements DAO<Veiculo> {
         Collection<Veiculo> veiculos = new ArrayList<>();
 
         while (rs.next()) {
-            Veiculo veiculo = new Veiculo();
+            veiculo = new Veiculo();
             veiculo.setModelo(rs.getString("modelo"));
             veiculo.setMarca(rs.getString("marca"));
             veiculo.setAno(rs.getString("ano"));

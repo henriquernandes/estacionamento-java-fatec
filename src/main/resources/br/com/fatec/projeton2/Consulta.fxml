@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" fx:id="paneConsulta" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.fatec.controllers.ConsultaController">
+<AnchorPane id="AnchorPane" fx:id="paneConsulta" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.fatec.Controllers.ConsultaController">
    <children>
       <Label fx:id="lblConsulta" layoutX="14.0" layoutY="14.0" prefHeight="30.0" prefWidth="95.0" text="Consultar:">
          <font>

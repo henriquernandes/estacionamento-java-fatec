@@ -69,6 +69,10 @@ public class Veiculo {
     public void setPlaca(String placa) {
         this.placa.set(placa);
     }
+    
+    public void setId(int id) {
+        this.id.set(id);
+    }
 
     public int getId() {
         return id.get();

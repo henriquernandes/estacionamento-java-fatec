@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="paneCarros" prefHeight="262.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.fatec.controllers.CadastroCarrosController">
+<AnchorPane id="AnchorPane" fx:id="paneCarros" prefHeight="262.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.fatec.Controllers.CadastroCarrosController">
    <children>
       <VBox fx:id="vboxLabel" layoutX="11.0" layoutY="28.0" prefHeight="130.0" prefWidth="63.0" spacing="10.0">
          <children>

@@ -99,4 +99,8 @@ public class Cliente {
     public int getId() {
         return this.id.get();
     }
+    
+     public void setId(int id) {
+        this.id.set(id);
+    }
 }

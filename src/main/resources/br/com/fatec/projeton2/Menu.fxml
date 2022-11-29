@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -7,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="menuPane" prefHeight="340.0" prefWidth="618.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.fatec.controllers.MenuController">
+<fx:root id="AnchorPane" fx:id="menuPane" prefHeight="340.0" prefWidth="618.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.fatec.Controllers.MenuController">
    <children>
       <VBox fx:id="hboxBotoes1" layoutY="15.0" prefHeight="183.0" prefWidth="280.0" spacing="50.0">
          <children>
@@ -37,4 +42,4 @@
          </font>
       </Label>
    </children>
-</AnchorPane>
+</fx:root>
