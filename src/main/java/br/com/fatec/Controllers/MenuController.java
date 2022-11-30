@@ -81,6 +81,8 @@ public class MenuController implements Initializable {
 
     @FXML
     private void btnSair_Click(ActionEvent event) {
+        Stage stage = (Stage) btnSair.getScene().getWindow();
+        stage.close();
     }
 
 }

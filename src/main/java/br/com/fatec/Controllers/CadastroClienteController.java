@@ -92,6 +92,18 @@ public class CadastroClienteController implements Initializable {
         c.setTelefone(txtTelefone.getText());
         c.setEndereco(txtEndereco.getText());
         c.setMensalista(chbMensalista.isSelected());
+        c.setId(Integer.parseInt(txtId.getText()));
+        
+        try{
+            if(dao.buscaID(c) != null){
+                AlertWindow alert = new AlertWindow("Esse cadastro já existe!!");
+                 alert.getError();
+                 return;
+            }
+        }catch (SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+
         try{
             if(dao.insere(c)){
                 AlertWindow alert = new AlertWindow("Dados inseridos com sucesso");
@@ -102,7 +114,7 @@ public class CadastroClienteController implements Initializable {
                 limparCampos();
             }
         }catch(SQLException e){
-           Logger.getLogger(CadastroCarrosController.class.getName());
+            System.out.println(e.getMessage());
         }
     }
 
@@ -123,7 +135,7 @@ public class CadastroClienteController implements Initializable {
                 alert.getError();
             }
         }catch(SQLException e){
-           Logger.getLogger(CadastroCarrosController.class.getName());
+           System.out.println(e.getMessage());
         }
     }
 
@@ -145,7 +157,7 @@ public class CadastroClienteController implements Initializable {
                 alert.getError();
             }
         }catch(SQLException e){
-           Logger.getLogger(CadastroCarrosController.class.getName());
+           System.out.println(e.getMessage());
         }
     }
 
@@ -166,7 +178,7 @@ public class CadastroClienteController implements Initializable {
                 alert.getError();
             }
         }catch(SQLException e){
-           Logger.getLogger(CadastroCarrosController.class.getName());
+           System.out.println(e.getMessage());
         }
     }
 

@@ -122,7 +122,7 @@ public class VeiculoDAO implements DAO<Veiculo> {
 
         stmt = Banco.obterConexao().prepareStatement(sql);
 
-        stmt.setString(1, obj.getPlaca());
+        stmt.setInt(1, obj.getId());
 
         rs = stmt.executeQuery();
 
@@ -130,18 +130,11 @@ public class VeiculoDAO implements DAO<Veiculo> {
 
         if (rs.next()) {
             veiculo = new Veiculo();
-            Cliente c = new Cliente();
-            c.setId(rs.getInt("cliente_id"));
-            c.setNome(rs.getString("cliente_id"));
-            c.setEndereco(rs.getString("endereco"));
-            c.setTelefone(rs.getString("telefone"));
-            c.setMensalista(rs.getBoolean("mensalista"));
             veiculo.setId(rs.getInt("id"));
             veiculo.setModelo(rs.getString("modelo"));
             veiculo.setMarca(rs.getString("marca"));
             veiculo.setAno(rs.getString("ano"));
             veiculo.setPlaca(rs.getString("placa"));
-            veiculo.setCliente(c);
         }
 
         Banco.desconectar();

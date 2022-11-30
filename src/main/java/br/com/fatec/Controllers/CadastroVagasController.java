@@ -26,6 +26,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -99,6 +100,16 @@ public class CadastroVagasController implements Initializable {
         vaga.setCarro(carro);
         vaga.setCod_vaga(txtCodVaga.getText());
         vaga.setCoberta(chbCoberta.isSelected());
+        
+        try{
+            if(dao.buscaID(vaga) != null){
+                AlertWindow alert = new AlertWindow("Esse cadastro já existe!!");
+                 alert.getError();
+                 return;
+            }
+        }catch (SQLException ex){
+            System.out.println(ex.getMessage());
+        }
 
         try{
              if(dao.insere(vaga)){
@@ -195,7 +206,8 @@ public class CadastroVagasController implements Initializable {
             if(v != null){
                 txtCodVaga.setText(v.getCod_vaga());
                 chbCoberta.setSelected(v.isCoberta());
-                cbIdCarro.setValue(daoVeiculo.buscaByID(v.getCarro()));
+                Veiculo c = daoVeiculo.buscaByID(v.getCarro());
+                cbIdCarro.setValue(c);
             }else {
                 limparCampos();
                 AlertWindow alert = new AlertWindow("Cliente não localizado");
@@ -208,16 +220,20 @@ public class CadastroVagasController implements Initializable {
 
     @FXML
     private void btnVoltar_Click(ActionEvent event) {
+        Stage stage = (Stage) btnVoltar.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
     private void btnLimpar_Click(ActionEvent event) {
-        
+        limparCampos();
     }
-    
+
     public void limparCampos() {
-        txtCarroId.setText("");
-        txtCodigo.setText("");
+        txtCodVaga.setText("");
+        chbCoberta.setSelected(false);
+        cbIdCarro.getSelectionModel().clearSelection();
+        cbIdCarro.setValue(null);
     }
    
 }

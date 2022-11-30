@@ -16,7 +16,6 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -109,6 +108,17 @@ public class CadastroCarrosController implements Initializable {
         carro.setMarca(txtMarca.getText());
         carro.setCliente(c);
         carro.setAno(txtAno.getText());
+        
+        try{
+            if(dao.buscaID(carro) != null){
+                AlertWindow alert = new AlertWindow("Esse cadastro já existe!!");
+                 alert.getError();
+                 return;
+            }
+        }catch (SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+
         
         try{
             if(dao.insere(carro)){
