@@ -24,7 +24,7 @@ public class Cliente {
         this.telefone = new SimpleStringProperty("");
         this.mensalista = new SimpleBooleanProperty(false);
         this.selecionado = new SimpleBooleanProperty(false);
-        this.id = new SimpleIntegerProperty(0);
+        this.id = new SimpleIntegerProperty();
     }
 
     public Cliente(String nome, String endereco, String telefone, boolean mensalista, boolean selecionado, int id) {

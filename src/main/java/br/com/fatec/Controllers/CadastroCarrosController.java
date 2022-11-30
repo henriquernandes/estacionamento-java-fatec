@@ -129,7 +129,7 @@ public class CadastroCarrosController implements Initializable {
                 alert.getError();
             }
         }catch(SQLException e){
-           Logger.getLogger(CadastroCarrosController.class.getName());
+           System.out.println(e.getMessage());
         }
     }
 
@@ -147,6 +147,14 @@ public class CadastroCarrosController implements Initializable {
         carro.setAno(txtAno.getText());
         
         try{
+            Veiculo checkExists = dao.buscaID(carro);
+            if(checkExists != null){
+                carro.setId(checkExists.getId());
+            }else {
+                AlertWindow alert = new AlertWindow("Veículo inválido");
+                alert.getError();
+                return;
+            }
             if(dao.altera(carro)){
                 AlertWindow alert = new AlertWindow("Dados alterados com sucesso");
                 alert.getInformation();
@@ -155,7 +163,7 @@ public class CadastroCarrosController implements Initializable {
                 alert.getError();
             }
         }catch(SQLException e){
-           Logger.getLogger(CadastroCarrosController.class.getName());
+           System.out.println(e.getMessage());
         }
     }
 
@@ -171,7 +179,7 @@ public class CadastroCarrosController implements Initializable {
             carro = dao.buscaID(carro);
             if(carro == null){
                 alert = new AlertWindow("Carro inválido");
-                alert.getInformation();
+                alert.getError();
             }
             if(dao.remove(carro)){
                 alert = new AlertWindow("Dados removidos com sucesso");
@@ -182,7 +190,7 @@ public class CadastroCarrosController implements Initializable {
                 alert.getError();
             }
         }catch(SQLException e){
-           Logger.getLogger(CadastroCarrosController.class.getName());
+           System.out.println(e.getMessage());
         }
     }
 
@@ -207,7 +215,7 @@ public class CadastroCarrosController implements Initializable {
                 alert.getError();
             }
         }catch(SQLException e){
-           Logger.getLogger(CadastroCarrosController.class.getName());
+           System.out.println(e.getMessage());
         }
     }
     

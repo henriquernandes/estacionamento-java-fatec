@@ -5,10 +5,11 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" fx:id="paneConsulta" prefHeight="334.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.fatec.Controllers.ConsultaController">
+<AnchorPane id="AnchorPane" fx:id="paneConsulta" prefHeight="323.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.fatec.Controllers.ConsultaController">
    <children>
-      <TableView fx:id="tbConsulta" layoutY="14.0" prefHeight="267.0" prefWidth="600.0">
+      <TableView fx:id="tbConsulta" layoutY="14.0" prefHeight="267.0" prefWidth="752.0">
         <columns>
+            <TableColumn fx:id="colID" prefWidth="153.0" text="ID" />
           <TableColumn fx:id="colNome" prefWidth="153.0" text="Nome" />
           <TableColumn fx:id="colEndereco" minWidth="0.0" prefWidth="172.0" text="Endereco" />
             <TableColumn fx:id="colTelefone" prefWidth="116.0" text="Telefone" />

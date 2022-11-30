@@ -30,6 +30,9 @@ public class ConsultaController implements Initializable {
 
     @FXML
     private Button btnVoltar;
+    
+    @FXML
+    private TableColumn<Cliente, String> colID;
 
     @FXML
     private TableColumn<Cliente, String> colEndereco;
@@ -54,6 +57,8 @@ public class ConsultaController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        colID.setCellValueFactory(new PropertyValueFactory<>("id"));
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         colEndereco.setCellValueFactory(new PropertyValueFactory<>("endereco"));
         colTelefone.setCellValueFactory(new PropertyValueFactory<>("telefone"));

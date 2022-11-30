@@ -92,16 +92,19 @@ public class CadastroClienteController implements Initializable {
         c.setTelefone(txtTelefone.getText());
         c.setEndereco(txtEndereco.getText());
         c.setMensalista(chbMensalista.isSelected());
-        c.setId(Integer.parseInt(txtId.getText()));
         
-        try{
-            if(dao.buscaID(c) != null){
-                AlertWindow alert = new AlertWindow("Esse cadastro já existe!!");
-                 alert.getError();
-                 return;
+        if(!txtId.getText().isEmpty()){
+            c.setId(Integer.parseInt(txtId.getText()));
+
+            try{
+                if(dao.buscaID(c) != null){
+                    AlertWindow alert = new AlertWindow("Esse cadastro já existe!!");
+                     alert.getError();
+                     return;
+                }
+            }catch (SQLException ex){
+                System.out.println(ex.getMessage());
             }
-        }catch (SQLException ex){
-            System.out.println(ex.getMessage());
         }
 
         try{
