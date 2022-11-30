@@ -11,14 +11,10 @@ import br.com.fatec.Model.Cliente;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -87,6 +83,12 @@ public class CadastroClienteController implements Initializable {
 
     @FXML
     private void btnSalvar_Click(ActionEvent event) {
+        if(checaCampos()) {
+            AlertWindow alert = new AlertWindow("Preencha todos os campos!");
+            alert.getError();
+            return;
+        }
+
         Cliente c = new Cliente();
         c.setNome(txtNome.getText());
         c.setTelefone(txtTelefone.getText());
@@ -123,6 +125,13 @@ public class CadastroClienteController implements Initializable {
 
     @FXML
     private void btnAlterar_Click(ActionEvent event) {
+        if(checaCampos()) {
+            AlertWindow alert = new AlertWindow("Preencha todos os campos!");
+            alert.getError();
+            return;
+        }
+
+
         Cliente c = new Cliente();
         c.setNome(txtNome.getText());
         c.setTelefone(txtTelefone.getText());
@@ -149,6 +158,11 @@ public class CadastroClienteController implements Initializable {
 
     @FXML
     private void btnExcluir_Click(ActionEvent event) {
+        if(txtId.getText().isEmpty()) {
+            AlertWindow alert = new AlertWindow("É necessario um id para excluir o cliente!!");
+            alert.getError();
+            return;
+        }
         Cliente c = new Cliente();
         c.setId(Integer.parseInt(txtId.getText()));
         AlertWindow alert = new AlertWindow();
@@ -171,6 +185,12 @@ public class CadastroClienteController implements Initializable {
 
     @FXML
     private void btnConsultar_Click(ActionEvent event) {
+        if (txtId.getText().isEmpty()){
+            AlertWindow alert = new AlertWindow("É necessario um id para consultar o cliente!!");
+            alert.getError();
+            return;
+        }
+
         Cliente c = new Cliente();
         c.setId(Integer.parseInt(txtId.getText()));
         try{
@@ -209,4 +229,7 @@ public class CadastroClienteController implements Initializable {
         chbMensalista.setSelected(false);
     }
     
+    private Boolean checaCampos() {
+        return txtNome.getText().isEmpty() || txtTelefone.getText().isEmpty() || txtEndereco.getText().isEmpty();
+    }
 }

@@ -13,6 +13,8 @@ import br.com.fatec.DAO.ClienteDAO;
 import br.com.fatec.Model.Cliente;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -50,11 +52,17 @@ public class ConsultaController implements Initializable {
     private AnchorPane paneConsulta;
 
     @FXML
+    private TextField txtPesquisa;
+
+    @FXML
     private TableView<Cliente> tbConsulta;
 
     /**
      * Initializes the controller class.
      */
+    private final ObservableList<Cliente> data = FXCollections.observableArrayList();
+
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -64,20 +72,43 @@ public class ConsultaController implements Initializable {
         colTelefone.setCellValueFactory(new PropertyValueFactory<>("telefone"));
         colMensalista.setCellValueFactory(new PropertyValueFactory<>("mensalista"));
 
-        tbConsulta.setItems(preencheTabela());
-    }
-
-    private ObservableList<Cliente> preencheTabela() {
         ClienteDAO dao = new ClienteDAO();
-        ObservableList<Cliente> clientes = FXCollections.observableArrayList();
 
         try {
-            clientes.addAll(dao.lista(""));
+            data.addAll(dao.lista(""));
         } catch (SQLException e) {
             Alert alerta = new Alert(Alert.AlertType.ERROR, "Erro Preenche Tabela: " + e.getMessage(), ButtonType.OK);
             alerta.showAndWait();
         }
-        return clientes;
+
+        FilteredList<Cliente> filteredData = new FilteredList<>(data, b -> true);
+
+        txtPesquisa.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(cliente -> {  
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                // Compare first name and last name of every person with filter text.
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (cliente.getNome().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else if (cliente.getTelefone().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else if (cliente.getEndereco().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        });
+
+        SortedList<Cliente> sortedData = new SortedList<>(filteredData);
+
+        sortedData.comparatorProperty().bind(tbConsulta.comparatorProperty());
+
+        tbConsulta.setItems(sortedData);
     }
 
     @FXML

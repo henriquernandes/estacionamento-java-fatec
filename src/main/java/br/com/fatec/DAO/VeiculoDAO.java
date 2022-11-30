@@ -43,13 +43,13 @@ public class VeiculoDAO implements DAO<Veiculo> {
 
     @Override
     public boolean remove(Veiculo obj) throws SQLException {
-        String sql = "DELETE FROM carro WHERE id = ?";
+        String sql = "DELETE  FROM carro WHERE carro.placa = ?";
 
         Banco.conectar();
 
         stmt = Banco.obterConexao().prepareStatement(sql);
 
-        stmt.setInt(1, obj.getId());
+        stmt.setString(1, obj.getPlaca());
 
         int res = stmt.executeUpdate();
 

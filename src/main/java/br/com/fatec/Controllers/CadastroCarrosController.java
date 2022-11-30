@@ -12,7 +12,6 @@ import br.com.fatec.Model.Veiculo;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -98,6 +97,12 @@ public class CadastroCarrosController implements Initializable {
 
     @FXML
     private void btnSalvar_Click(ActionEvent event) {
+        if(checaCampos()) {
+            AlertWindow alert = new AlertWindow("Preencha todos os campos!");
+            alert.getError();
+            return;
+        }
+
         Veiculo carro = new Veiculo();
         Cliente c = new Cliente();
         c.setId(Integer.parseInt(txtClienteId.getText()));
@@ -135,6 +140,12 @@ public class CadastroCarrosController implements Initializable {
 
     @FXML
     private void btnAlterar_Click(ActionEvent event) {
+        if (checaCampos()){
+            AlertWindow alert = new AlertWindow("Preencha o campo placa");
+            alert.getError();
+            return;
+        }
+
         Veiculo carro = new Veiculo();
         Cliente c = new Cliente();
         c.setId(Integer.parseInt(txtClienteId.getText()));
@@ -169,6 +180,12 @@ public class CadastroCarrosController implements Initializable {
 
     @FXML
     private void btnExcluir_Click(ActionEvent event) throws SQLException{
+        if(txtPlaca.getText().isEmpty()){
+            AlertWindow alert = new AlertWindow("Preencha o campo placa");
+            alert.getError();
+            return;
+        }
+
         Veiculo carro = new Veiculo();
         AlertWindow alert = new AlertWindow();
         if(alert.getConfirmation()){
@@ -196,6 +213,12 @@ public class CadastroCarrosController implements Initializable {
 
     @FXML
     private void btnConsultar_Click(ActionEvent event) {
+        if(txtPlaca.getText().isEmpty()){
+            AlertWindow alert = new AlertWindow("Preencha o campo placa");
+            alert.getError();
+            return;
+        }
+
         Veiculo v = new Veiculo();
         v.setPlaca(txtPlaca.getText());
         try{
@@ -226,5 +249,8 @@ public class CadastroCarrosController implements Initializable {
         txtAno.setText("");
         txtClienteId.setText("");
     }
-    
+
+    public Boolean checaCampos() {
+        return txtPlaca.getText().isEmpty() || txtModelo.getText().isEmpty() || txtMarca.getText().isEmpty() || txtAno.getText().isEmpty() || txtClienteId.getText().isEmpty();
+    }
 }

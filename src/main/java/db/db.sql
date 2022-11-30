@@ -1,3 +1,7 @@
+create database estacionamento;
+
+use estacionamento;
+
 DROP table IF exists `carro` cascade;
 DROP table IF exists `cliente` cascade;
 DROP table IF exists `vaga` cascade;
@@ -24,6 +28,6 @@ CREATE TABLE `vaga`(
                        `coberta` boolean NOT NULL
 );
 ALTER TABLE
-    `carro` ADD CONSTRAINT `carro_idcliente_foreign` FOREIGN KEY(`cliente_id`) REFERENCES `cliente`(`id`);
+    `carro` ADD CONSTRAINT `carro_idcliente_foreign` FOREIGN KEY(`cliente_id`) REFERENCES `cliente`(`id`) ON DELETE CASCADE;
 ALTER TABLE
-    `vaga` ADD CONSTRAINT `vaga_idcarro_foreign` FOREIGN KEY(`carro_id`) REFERENCES `carro`(`id`);
+    `vaga` ADD CONSTRAINT `vaga_idcarro_foreign` FOREIGN KEY(`carro_id`) REFERENCES `carro`(`id`) ON DELETE CASCADE;
