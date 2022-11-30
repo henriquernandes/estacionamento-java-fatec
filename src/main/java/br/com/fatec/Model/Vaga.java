@@ -60,4 +60,7 @@ public class Vaga {
     public int getId() {
         return id.get();
     }
+    public void setId(int id) {
+        this.id.get();
+    }
 }
