@@ -12,7 +12,6 @@ import br.com.fatec.Model.Veiculo;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -103,7 +102,7 @@ public class CadastroCarrosController implements Initializable {
             alert.getError();
             return;
         }
-        
+
         Veiculo carro = new Veiculo();
         Cliente c = new Cliente();
         c.setId(Integer.parseInt(txtClienteId.getText()));

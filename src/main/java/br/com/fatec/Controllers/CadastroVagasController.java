@@ -255,7 +255,6 @@ public class CadastroVagasController implements Initializable {
         cbIdCarro.setValue(null);
     }
 
-    //faça uma função para checar se o campo está vazio
     public boolean checaCampos(){
         return txtCodVaga.getText().isEmpty() || cbIdCarro.getValue() == null || cbIdCarro.getSelectionModel().isEmpty();
     }
