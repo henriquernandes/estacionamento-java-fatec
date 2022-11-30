@@ -78,7 +78,8 @@ public class VagaDAO implements DAO<Vaga>{
 
         return res != 0;
     }
-
+    
+    @Override
     public Vaga buscaID(Vaga obj) throws SQLException {
         String sql = "SELECT * FROM vaga WHERE cod_vaga = ?";
 

@@ -117,16 +117,30 @@ public class CadastroVagasController implements Initializable {
     private void btnAlterar_Click(ActionEvent event) {
         Veiculo carro = new Veiculo();
         Vaga vaga = new Vaga();
+        vaga.setCod_vaga(txtCodVaga.getText());
+        
+        try{
+            vaga = dao.buscaID(vaga);
+            System.out.println(vaga);
+            if(vaga == null){
+                AlertWindow alert = new AlertWindow("Nenhum vaga encontrada!!");
+                alert.getError();
+                return;
+            }
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }
         
         if(cbIdCarro.getValue() == null){
             AlertWindow alert = new AlertWindow("Nenhum carro selecionado!!");
             alert.getError();
             return;
+        }else {
+            carro.setId(cbIdCarro.getSelectionModel().getSelectedItem().getId());
         }
         vaga.setCarro(carro);
         vaga.setCod_vaga(txtCodVaga.getText());
         vaga.setCoberta(chbCoberta.isSelected());
-
         try{
             if(dao.altera(vaga)){
                 AlertWindow alert = new AlertWindow("Dados alterados com sucesso");

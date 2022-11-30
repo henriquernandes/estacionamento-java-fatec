@@ -17,19 +17,19 @@ public class Vaga {
     private final SimpleStringProperty cod_vaga;
     private final SimpleBooleanProperty coberta;
     private Veiculo carro;
-    private final SimpleIntegerProperty id;
+    private int id;
 
    
     public Vaga() {
-        this.id = new SimpleIntegerProperty(0);
+        this.id = 0;
         this.cod_vaga = new SimpleStringProperty("");
         this.coberta = new SimpleBooleanProperty(false);
     }
     
-    public Vaga(String cod_vaga, boolean coberta, SimpleIntegerProperty id){
+    public Vaga(String cod_vaga, boolean coberta, int id){
         this.cod_vaga = new SimpleStringProperty(cod_vaga);
         this.coberta = new SimpleBooleanProperty(coberta);
-        this.id = new SimpleIntegerProperty(id.get());
+        this.id = id;
     }
 
 
@@ -56,15 +56,11 @@ public class Vaga {
     public void setCarro(Veiculo carro) {
         this.carro = carro;
     }
-    
-    public void setId(int id) {
-        this.id.set(id);
-    }
 
     public int getId() {
-        return id.get();
+        return this.id;
     }
     public void setId(int id) {
-        this.id.get();
+        this.id = id;
     }
 }
