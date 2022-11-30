@@ -38,6 +38,11 @@ public class Veiculo {
         this.cliente = cliente;
     }
 
+    @Override
+    public String toString() {
+        return id.get() + " - Placa: " + placa.get();
+    }
+
     public String getMarca() {
         return marca.get();
     }

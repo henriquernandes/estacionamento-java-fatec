@@ -81,13 +81,13 @@ public class VagaDAO implements DAO<Vaga>{
 
     @Override
     public Vaga buscaID(Vaga obj) throws SQLException {
-        String sql = "SELECT * FROM vaga WHERE id = ?";
+        String sql = "SELECT * FROM vaga WHERE cod_vaga = ?";
 
         Banco.conectar();
 
         stmt = Banco.obterConexao().prepareStatement(sql);
 
-        stmt.setInt(1, obj.getId());
+        stmt.setString(1, obj.getCod_vaga());
 
         rs = stmt.executeQuery();
 
@@ -95,9 +95,12 @@ public class VagaDAO implements DAO<Vaga>{
 
         if(rs.next()){
             vaga = new Vaga();
+            Veiculo v = new Veiculo();
+            v.setId(rs.getInt("carro_id"));
+            vaga.setId(rs.getInt("id"));
             vaga.setCod_vaga(rs.getString("cod_vaga"));
             vaga.setCoberta(rs.getBoolean("coberta"));
-            vaga.setCarro(rs.getObject("carro_id", Veiculo.class));
+            vaga.setCarro(v);
         }
 
         Banco.desconectar();

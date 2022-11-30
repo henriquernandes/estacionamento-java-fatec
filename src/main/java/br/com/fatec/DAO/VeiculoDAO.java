@@ -114,6 +114,40 @@ public class VeiculoDAO implements DAO<Veiculo> {
 
         return veiculo;
     }
+    
+    public Veiculo buscaByID(Veiculo obj) throws SQLException {
+        String sql = "SELECT * FROM carro WHERE id = ?";
+
+        Banco.conectar();
+
+        stmt = Banco.obterConexao().prepareStatement(sql);
+
+        stmt.setString(1, obj.getPlaca());
+
+        rs = stmt.executeQuery();
+
+        veiculo = null;
+
+        if (rs.next()) {
+            veiculo = new Veiculo();
+            Cliente c = new Cliente();
+            c.setId(rs.getInt("cliente_id"));
+            c.setNome(rs.getString("cliente_id"));
+            c.setEndereco(rs.getString("endereco"));
+            c.setTelefone(rs.getString("telefone"));
+            c.setMensalista(rs.getBoolean("mensalista"));
+            veiculo.setId(rs.getInt("id"));
+            veiculo.setModelo(rs.getString("modelo"));
+            veiculo.setMarca(rs.getString("marca"));
+            veiculo.setAno(rs.getString("ano"));
+            veiculo.setPlaca(rs.getString("placa"));
+            veiculo.setCliente(c);
+        }
+
+        Banco.desconectar();
+
+        return veiculo;
+    }
 
     @Override
     public Collection<Veiculo> lista(String criterio) throws SQLException {
@@ -132,12 +166,15 @@ public class VeiculoDAO implements DAO<Veiculo> {
         Collection<Veiculo> veiculos = new ArrayList<>();
 
         while (rs.next()) {
+            Cliente c = new Cliente();
+            c.setId(rs.getInt("cliente_id"));
             veiculo = new Veiculo();
+            veiculo.setId(rs.getInt("id"));
             veiculo.setModelo(rs.getString("modelo"));
             veiculo.setMarca(rs.getString("marca"));
             veiculo.setAno(rs.getString("ano"));
             veiculo.setPlaca(rs.getString("placa"));
-            veiculo.setCliente(rs.getObject("cliente_id", Cliente.class));
+            veiculo.setCliente(c);
 
             veiculos.add(veiculo);
         }

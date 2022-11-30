@@ -56,6 +56,10 @@ public class Vaga {
     public void setCarro(Veiculo carro) {
         this.carro = carro;
     }
+    
+    public void setId(int id) {
+        this.id.set(id);
+    }
 
     public int getId() {
         return id.get();
