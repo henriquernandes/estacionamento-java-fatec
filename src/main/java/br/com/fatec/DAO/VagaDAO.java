@@ -50,7 +50,7 @@ public class VagaDAO implements DAO<Vaga>{
 
         stmt = Banco.obterConexao().prepareStatement(sql);
 
-        stmt.setInt(1, obj.getCarro().getId());
+        stmt.setInt(1, obj.getId());
 
         int res = stmt.executeUpdate();
 

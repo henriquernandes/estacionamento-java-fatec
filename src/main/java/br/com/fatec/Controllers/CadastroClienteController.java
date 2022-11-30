@@ -128,6 +128,11 @@ public class CadastroClienteController implements Initializable {
         c.setTelefone(txtTelefone.getText());
         c.setEndereco(txtEndereco.getText());
         c.setMensalista(chbMensalista.isSelected());
+        if(txtId.getText().isEmpty()){
+            AlertWindow alert = new AlertWindow("É necessario um id para alterar o cliente!!");
+            alert.getError();
+            return;
+        }
         c.setId(Integer.parseInt(txtId.getText()));
         try{
             if(dao.altera(c)){

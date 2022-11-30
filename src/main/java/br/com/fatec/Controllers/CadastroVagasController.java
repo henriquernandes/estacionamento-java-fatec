@@ -189,7 +189,7 @@ public class CadastroVagasController implements Initializable {
                 alert.getInformation();
                 limparCampos();
             }else {
-                alert = new AlertWindow("Dados não inseridos!");
+                alert = new AlertWindow("Dados não excluidos!");
                 alert.getError();
             }
         }catch(SQLException e){
@@ -210,7 +210,7 @@ public class CadastroVagasController implements Initializable {
                 cbIdCarro.setValue(c);
             }else {
                 limparCampos();
-                AlertWindow alert = new AlertWindow("Cliente não localizado");
+                AlertWindow alert = new AlertWindow("Vaga não localizado");
                 alert.getError();
             }
         }catch(SQLException e){
