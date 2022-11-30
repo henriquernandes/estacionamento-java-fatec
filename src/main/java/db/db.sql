@@ -1,3 +1,7 @@
+create database estacionamento;
+
+use estacionamento;
+
 DROP table IF exists `carro` cascade;
 DROP table IF exists `cliente` cascade;
 DROP table IF exists `vaga` cascade;

@@ -12,18 +12,13 @@ import br.com.fatec.Model.Vaga;
 import br.com.fatec.Model.Veiculo;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.Collection;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -94,13 +89,19 @@ public class CadastroVagasController implements Initializable {
 
     @FXML
     private void btnSalvar_Click(ActionEvent event) {
+        if(checaCampos()){
+            AlertWindow alert = new AlertWindow("Preencha todos os campos!!");
+            alert.getError();
+            return;
+        }
+
         Vaga vaga = new Vaga();
         Veiculo carro = new Veiculo();
         carro.setId(cbIdCarro.getSelectionModel().getSelectedItem().getId());
         vaga.setCarro(carro);
         vaga.setCod_vaga(txtCodVaga.getText());
         vaga.setCoberta(chbCoberta.isSelected());
-        
+
         try{
             if(dao.buscaID(vaga) != null){
                 AlertWindow alert = new AlertWindow("Esse cadastro já existe!!");
@@ -125,10 +126,20 @@ public class CadastroVagasController implements Initializable {
     }
 
     @FXML
-    private void btnAlterar_Click(ActionEvent event) {
+    private void btnAlterar_Click(ActionEvent event) {        
         Veiculo carro = new Veiculo();
         Vaga vaga = new Vaga();
         vaga.setCod_vaga(txtCodVaga.getText());
+        
+        if(checaCampos()){
+            AlertWindow alert = new AlertWindow("Preencha todos os campos!!");
+            alert.getError();
+            return;
+        }else {
+            carro.setId(cbIdCarro.getSelectionModel().getSelectedItem().getId());
+        }
+
+        
         
         try{
             vaga = dao.buscaID(vaga);
@@ -142,13 +153,7 @@ public class CadastroVagasController implements Initializable {
             System.out.println(ex.getMessage());
         }
         
-        if(cbIdCarro.getValue() == null){
-            AlertWindow alert = new AlertWindow("Nenhum carro selecionado!!");
-            alert.getError();
-            return;
-        }else {
-            carro.setId(cbIdCarro.getSelectionModel().getSelectedItem().getId());
-        }
+
         vaga.setCarro(carro);
         vaga.setCod_vaga(txtCodVaga.getText());
         vaga.setCoberta(chbCoberta.isSelected());
@@ -167,9 +172,16 @@ public class CadastroVagasController implements Initializable {
 
     @FXML
     private void btnExcluir_Click(ActionEvent event) {
+        if(txtCodVaga.getText().isEmpty()){
+            AlertWindow alert = new AlertWindow("Preencha o cod da vaga");
+            alert.getError();
+            return;
+        }
+
         Vaga v = new Vaga();
         v.setCod_vaga(txtCodVaga.getText());
         AlertWindow alert = new AlertWindow();
+
         try{
             v = dao.buscaID(v);
             if(v == null){
@@ -199,8 +211,15 @@ public class CadastroVagasController implements Initializable {
 
     @FXML
     private void btnConsultar_Click(ActionEvent event) {
+        if(txtCodVaga.getText().isEmpty()){
+            AlertWindow alert = new AlertWindow("Preencha o codigo da vaga");
+            alert.getError();
+            return;
+        }
+
         Vaga v = new Vaga();
         v.setCod_vaga(txtCodVaga.getText());
+
         try{
             v = dao.buscaID(v);
             if(v != null){
@@ -235,5 +254,9 @@ public class CadastroVagasController implements Initializable {
         cbIdCarro.getSelectionModel().clearSelection();
         cbIdCarro.setValue(null);
     }
-   
+
+    //faça uma função para checar se o campo está vazio
+    public boolean checaCampos(){
+        return txtCodVaga.getText().isEmpty() || cbIdCarro.getValue() == null || cbIdCarro.getSelectionModel().isEmpty();
+    }
 }
