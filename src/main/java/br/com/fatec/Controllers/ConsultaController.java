@@ -6,17 +6,20 @@
 package br.com.fatec.Controllers;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+
+import br.com.fatec.DAO.ClienteDAO;
+import br.com.fatec.Model.Cliente;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -26,42 +29,55 @@ import javafx.scene.layout.AnchorPane;
 public class ConsultaController implements Initializable {
 
     @FXML
-    private AnchorPane paneConsulta;
-    @FXML
-    private Label lblConsulta;
-    @FXML
-    private ComboBox<?> cbConsulta;
-    @FXML
-    private Label lblCodigo;
-    @FXML
-    private TextField txtCodigo;
-    @FXML
-    private TableView<?> tbConsulta;
-    @FXML
-    private TableColumn<?, ?> colVaga;
-    @FXML
-    private TableColumn<?, ?> colCliente;
-    @FXML
-    private TableColumn<?, ?> colCarro;
-    @FXML
-    private Button btnBusca;
-    @FXML
     private Button btnVoltar;
+
+    @FXML
+    private TableColumn<Cliente, String> colEndereco;
+
+    @FXML
+    private TableColumn<Cliente, Boolean> colMensalista;
+
+    @FXML
+    private TableColumn<Cliente, String> colNome;
+
+    @FXML
+    private TableColumn<Cliente, String> colTelefone;
+
+    @FXML
+    private AnchorPane paneConsulta;
+
+    @FXML
+    private TableView<Cliente> tbConsulta;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+        colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colEndereco.setCellValueFactory(new PropertyValueFactory<>("endereco"));
+        colTelefone.setCellValueFactory(new PropertyValueFactory<>("telefone"));
+        colMensalista.setCellValueFactory(new PropertyValueFactory<>("mensalista"));
 
-    @FXML
-    private void btnBusca_Click(ActionEvent event) {
+        tbConsulta.setItems(preencheTabela());
+    }
+
+    private ObservableList<Cliente> preencheTabela() {
+        ClienteDAO dao = new ClienteDAO();
+        ObservableList<Cliente> clientes = FXCollections.observableArrayList();
+
+        try {
+            clientes.addAll(dao.lista(""));
+        } catch (SQLException e) {
+            Alert alerta = new Alert(Alert.AlertType.ERROR, "Erro Preenche Tabela: " + e.getMessage(), ButtonType.OK);
+            alerta.showAndWait();
+        }
+        return clientes;
     }
 
     @FXML
     private void btnVoltar_Click(ActionEvent event) {
+        Stage stage = (Stage) btnVoltar.getScene().getWindow();
+        stage.close();
     }
-    
 }

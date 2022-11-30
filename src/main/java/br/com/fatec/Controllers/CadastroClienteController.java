@@ -113,6 +113,7 @@ public class CadastroClienteController implements Initializable {
         c.setTelefone(txtTelefone.getText());
         c.setEndereco(txtEndereco.getText());
         c.setMensalista(chbMensalista.isSelected());
+        c.setId(Integer.parseInt(txtId.getText()));
         try{
             if(dao.altera(c)){
                 AlertWindow alert = new AlertWindow("Dados alterados com sucesso");
@@ -184,6 +185,7 @@ public class CadastroClienteController implements Initializable {
         txtNome.setText("");
         txtTelefone.setText("");
         txtEndereco.setText("");
+        txtId.setText("");
         chbMensalista.setSelected(false);
     }
     

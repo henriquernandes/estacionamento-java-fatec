@@ -20,26 +20,11 @@
             <artifactId>javafx-fxml</artifactId>
             <version>13</version>
         </dependency>
-
         <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>6.0.6</version>
-        </dependency> 
-
-        <!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
-        <dependency>
-            <groupId>org.mariadb.jdbc</groupId>
-            <artifactId>mariadb-java-client</artifactId>
-            <version>3.0.4</version>
-        </dependency>
-        
-        <!-- https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc -->
-        <dependency>
-            <groupId>com.microsoft.sqlserver</groupId>
-            <artifactId>mssql-jdbc</artifactId>
-            <version>9.4.0.jre11</version>
         </dependency>
     </dependencies>
     <build>

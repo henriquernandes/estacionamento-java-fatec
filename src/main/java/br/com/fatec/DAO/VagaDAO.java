@@ -19,9 +19,9 @@ import java.util.Collection;
  */
 public class VagaDAO implements DAO<Vaga>{
 
-    private  java.sql.PreparedStatement stmt;
+    private static java.sql.PreparedStatement stmt;
 
-    private java.sql.ResultSet rs;
+    private static java.sql.ResultSet rs;
 
     @Override
     public boolean insere(Vaga obj) throws SQLException {
@@ -79,7 +79,6 @@ public class VagaDAO implements DAO<Vaga>{
         return res != 0;
     }
 
-    @Override
     public Vaga buscaID(Vaga obj) throws SQLException {
         String sql = "SELECT * FROM vaga WHERE cod_vaga = ?";
 
