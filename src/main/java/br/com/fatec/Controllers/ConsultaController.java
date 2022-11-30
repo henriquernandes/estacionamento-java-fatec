@@ -37,9 +37,6 @@ public class ConsultaController implements Initializable {
     private TableColumn<Cliente, String> colID;
 
     @FXML
-    private TableColumn<Cliente, String> colEndereco;
-
-    @FXML
     private TableColumn<Cliente, Boolean> colMensalista;
 
     @FXML
@@ -68,7 +65,6 @@ public class ConsultaController implements Initializable {
 
         colID.setCellValueFactory(new PropertyValueFactory<>("id"));
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        colEndereco.setCellValueFactory(new PropertyValueFactory<>("endereco"));
         colTelefone.setCellValueFactory(new PropertyValueFactory<>("telefone"));
         colMensalista.setCellValueFactory(new PropertyValueFactory<>("mensalista"));
 

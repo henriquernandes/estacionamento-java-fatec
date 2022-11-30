@@ -7,7 +7,11 @@ package br.com.fatec.Controllers;
 
 import Errors.AlertWindow;
 import br.com.fatec.DAO.ClienteDAO;
+import br.com.fatec.DAO.EnderecoDAO;
+import br.com.fatec.DAO.MensalidadeDAO;
 import br.com.fatec.Model.Cliente;
+import br.com.fatec.Model.Endereco;
+import br.com.fatec.Model.Mensalidade;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -69,16 +73,28 @@ public class CadastroClienteController implements Initializable {
     private Label lblId;
     @FXML
     private TextField txtId;
+    @FXML
+    private Label lblPreco;
     
     private boolean insere, altera, remove;
     ClienteDAO dao = new ClienteDAO();
-    
+    EnderecoDAO daoEnd = new EnderecoDAO();
+    MensalidadeDAO daoMens = new MensalidadeDAO();
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+       try{
+           Mensalidade mens = daoMens.buscaID();
+           if(mens != null){
+               lblPreco.setText(mens.toString());
+           }else {
+               lblPreco.setText("0.00");
+           }
+       }catch(SQLException ex){
+           System.out.println(ex.getMessage());
+       }
     }    
 
     @FXML
@@ -92,12 +108,10 @@ public class CadastroClienteController implements Initializable {
         Cliente c = new Cliente();
         c.setNome(txtNome.getText());
         c.setTelefone(txtTelefone.getText());
-        c.setEndereco(txtEndereco.getText());
         c.setMensalista(chbMensalista.isSelected());
         
         if(!txtId.getText().isEmpty()){
             c.setId(Integer.parseInt(txtId.getText()));
-
             try{
                 if(dao.buscaID(c) != null){
                     AlertWindow alert = new AlertWindow("Esse cadastro já existe!!");
@@ -110,7 +124,11 @@ public class CadastroClienteController implements Initializable {
         }
 
         try{
-            if(dao.insere(c)){
+            if(dao.insere(c)){        
+                Endereco end = new Endereco();
+                end.setEndereco(txtEndereco.getText());
+                end.setCliente_id(dao.buscaPorNomeID(c).getId());
+                daoEnd.insere(end);
                 AlertWindow alert = new AlertWindow("Dados inseridos com sucesso");
                 alert.getInformation();
             }else {
@@ -133,9 +151,10 @@ public class CadastroClienteController implements Initializable {
 
 
         Cliente c = new Cliente();
+        Endereco end = new Endereco();
         c.setNome(txtNome.getText());
         c.setTelefone(txtTelefone.getText());
-        c.setEndereco(txtEndereco.getText());
+        end.setEndereco(txtEndereco.getText());
         c.setMensalista(chbMensalista.isSelected());
         if(txtId.getText().isEmpty()){
             AlertWindow alert = new AlertWindow("É necessario um id para alterar o cliente!!");
@@ -145,6 +164,8 @@ public class CadastroClienteController implements Initializable {
         c.setId(Integer.parseInt(txtId.getText()));
         try{
             if(dao.altera(c)){
+                end.setCliente_id(Integer.parseInt(txtId.getText()));
+                daoEnd.altera(end);
                 AlertWindow alert = new AlertWindow("Dados alterados com sucesso");
                 alert.getInformation();
             }else {
@@ -164,13 +185,16 @@ public class CadastroClienteController implements Initializable {
             return;
         }
         Cliente c = new Cliente();
+        Endereco end = new Endereco();
         c.setId(Integer.parseInt(txtId.getText()));
+        end.setCliente_id(c.getId());
         AlertWindow alert = new AlertWindow();
         if(alert.getConfirmation()){
             return;
         }
         try{
             if(dao.remove(c)){
+                daoEnd.remove(end);
                 alert = new AlertWindow("Dados excluidos com sucesso");
                 alert.getInformation();
                 limparCampos();
@@ -192,14 +216,18 @@ public class CadastroClienteController implements Initializable {
         }
 
         Cliente c = new Cliente();
+        Endereco end = new Endereco();
         c.setId(Integer.parseInt(txtId.getText()));
+        end.setCliente_id(c.getId());
         try{
             c = dao.buscaID(c);
             if(c != null){
+                end.setCliente_id(Integer.parseInt(txtId.getText()));
+                end = daoEnd.buscaID(end);
                 txtNome.setText(c.getNome());
                 txtTelefone.setText(c.getTelefone());
-                txtEndereco.setText(c.getEndereco());
-                chbMensalista.setSelected(c.isMensalista());;
+                txtEndereco.setText(end.getEndereco());
+                chbMensalista.setSelected(c.isMensalista());
             }else {
                 limparCampos();
                 AlertWindow alert = new AlertWindow("Cliente não localizado");

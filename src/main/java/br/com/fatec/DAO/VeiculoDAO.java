@@ -99,7 +99,6 @@ public class VeiculoDAO implements DAO<Veiculo> {
             Cliente c = new Cliente();
             c.setId(rs.getInt("cliente_id"));
             c.setNome(rs.getString("cliente_id"));
-            c.setEndereco(rs.getString("endereco"));
             c.setTelefone(rs.getString("telefone"));
             c.setMensalista(rs.getBoolean("mensalista"));
             veiculo.setId(rs.getInt("id"));

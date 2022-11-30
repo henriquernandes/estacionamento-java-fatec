@@ -223,15 +223,12 @@ public class CadastroCarrosController implements Initializable {
         v.setPlaca(txtPlaca.getText());
         try{
             v = dao.buscaID(v);
-                    System.out.println(txtPlaca.getText());
-
             if(v != null){
                 txtAno.setText(v.getAno());
                 txtMarca.setText(v.getMarca());
                 txtModelo.setText(v.getModelo());
                 txtPlaca.setText(v.getPlaca());
                 txtClienteId.setText(""+ v.getCliente().getId());
-                System.out.println(v.getAno());
             }else {
                 limparCampos();
                 AlertWindow alert = new AlertWindow("Veiculo não localizado");

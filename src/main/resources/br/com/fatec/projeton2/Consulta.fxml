@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -7,15 +10,14 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" fx:id="paneConsulta" prefHeight="323.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.fatec.Controllers.ConsultaController">
+<AnchorPane id="AnchorPane" fx:id="paneConsulta" prefHeight="323.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.fatec.Controllers.ConsultaController">
    <children>
       <TableView fx:id="tbConsulta" layoutY="49.0" prefHeight="232.0" prefWidth="752.0">
         <columns>
             <TableColumn fx:id="colID" prefWidth="153.0" text="ID" />
           <TableColumn fx:id="colNome" prefWidth="153.0" text="Nome" />
-          <TableColumn fx:id="colEndereco" minWidth="0.0" prefWidth="172.0" text="Endereco" />
-            <TableColumn fx:id="colTelefone" prefWidth="116.0" text="Telefone" />
-            <TableColumn fx:id="colMensalista" prefWidth="155.0" text="Mensalista" />
+            <TableColumn fx:id="colTelefone" prefWidth="153.0" text="Telefone" />
+            <TableColumn fx:id="colMensalista" prefWidth="181.0" text="Mensalista" />
         </columns>
       </TableView>
       <Button fx:id="btnVoltar" layoutX="498.0" layoutY="290.0" mnemonicParsing="false" onAction="#btnVoltar_Click" prefHeight="30.0" prefWidth="95.0" text="Voltar" />

@@ -21,16 +21,15 @@ public class ClienteDAO implements DAO<Cliente> {
 
     @Override
     public boolean insere(Cliente obj) throws SQLException {
-            String sql = "INSERT INTO cliente (nome, endereco, telefone, mensalista) VALUES (?,?,?,?)";
+            String sql = "INSERT INTO cliente (nome,  telefone, mensalista) VALUES (?,?,?)";
 
             Banco.conectar();
 
             stmt = Banco.obterConexao().prepareStatement(sql);
 
             stmt.setString(1, obj.getNome());
-            stmt.setString (2, obj.getEndereco());
-            stmt.setString(3, obj.getTelefone());
-            stmt.setBoolean(4, obj.isMensalista());
+            stmt.setString(2, obj.getTelefone());
+            stmt.setBoolean(3, obj.isMensalista());
 
             int res = stmt.executeUpdate();
 
@@ -58,17 +57,16 @@ public class ClienteDAO implements DAO<Cliente> {
 
     @Override
     public boolean altera(Cliente obj) throws SQLException {
-        String sql = "UPDATE cliente SET nome = ?, endereco = ?, telefone = ?, mensalista = ? WHERE id = ?";
+        String sql = "UPDATE cliente SET nome = ?, telefone = ?, mensalista = ? WHERE id = ?";
 
         Banco.conectar();
 
         stmt = Banco.obterConexao().prepareStatement(sql);
 
         stmt.setString(1, obj.getNome());
-        stmt.setString (2, obj.getEndereco());
-        stmt.setString(3, obj.getTelefone());
-        stmt.setBoolean(4, obj.isMensalista());
-        stmt.setInt(5, obj.getId());
+        stmt.setString(2, obj.getTelefone());
+        stmt.setBoolean(3, obj.isMensalista());
+        stmt.setInt(4, obj.getId());
 
         int res = stmt.executeUpdate();
 
@@ -79,7 +77,7 @@ public class ClienteDAO implements DAO<Cliente> {
 
     @Override
     public Cliente buscaID(Cliente obj) throws SQLException {
-        String sql = "SELECT * FROM cliente WHERE id = ?";
+        String sql = "SELECT * FROM cliente inner join endereco on cliente.id = endereco.cliente_id  WHERE cliente.id = ?";
 
         Banco.conectar();
 
@@ -92,9 +90,34 @@ public class ClienteDAO implements DAO<Cliente> {
         if(rs.next()){
             cliente = new Cliente();
             cliente.setNome(rs.getString("nome"));
-            cliente.setEndereco(rs.getString("endereco"));
             cliente.setTelefone(rs.getString("telefone"));
             cliente.setMensalista(rs.getBoolean("mensalista"));
+        } else {
+            cliente = null;
+        }
+
+        Banco.desconectar();
+
+        return cliente;
+    }
+    
+    public Cliente buscaPorNomeID(Cliente obj) throws SQLException {
+        String sql = "SELECT * FROM cliente WHERE nome = ?";
+
+        Banco.conectar();
+
+        stmt = Banco.obterConexao().prepareStatement(sql);
+
+        stmt.setString(1, obj.getNome());
+
+        rs = stmt.executeQuery();
+
+        if(rs.next()){
+            cliente = new Cliente();
+            cliente.setNome(rs.getString("nome"));
+            cliente.setTelefone(rs.getString("telefone"));
+            cliente.setMensalista(rs.getBoolean("mensalista"));
+            cliente.setId(rs.getInt("id"));
         } else {
             cliente = null;
         }
@@ -124,7 +147,6 @@ public class ClienteDAO implements DAO<Cliente> {
             cliente = new Cliente();
             cliente.setId(rs.getInt("id"));
             cliente.setNome(rs.getString("nome"));
-            cliente.setEndereco(rs.getString("endereco"));
             cliente.setTelefone(rs.getString("telefone"));
             cliente.setMensalista(rs.getBoolean("mensalista"));
             lista.add(cliente);
